@@ -1,10 +1,20 @@
 const express = require("express");
-const routes = express.Router();
+const router = express.Router();
 
-const UserController = require("./app/controllers/UserController");
-const SessionController = require("./app/controllers/SessionController");
+const AuthMiddleware = require("./app/middlewares/auth");
 
-routes.post('/users', UserController.store);
-routes.post('/sessions', SessionController.store);
+const controllers = require('./app/controllers');
 
-module.exports = routes;
+router.post('/users', controllers.UserController.store);
+router.post('/sessions', controllers.SessionController.store);
+
+router.use(AuthMiddleware);
+
+// Add Routes
+router.get('/ads', controllers.AdController.index)
+router.get('/ads/:id', controllers.AdController.show)
+router.post('/ads', controllers.AdController.store)
+router.put('/ads/:id', controllers.AdController.update)
+router.delete('/ads/:id', controllers.AdController.destroy)
+
+module.exports = router;
