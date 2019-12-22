@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const mongoosePaginate = require("mongoose-paginate");
 
 const Ad = new mongoose.Schema({
     title: {
@@ -11,7 +12,7 @@ const Ad = new mongoose.Schema({
     },
     author: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'user',
+        ref: 'User',
         required: true
     },
     price: {
@@ -23,5 +24,7 @@ const Ad = new mongoose.Schema({
         default: Date.now
     }
 });
+
+mongoose.plugin(mongoosePaginate);
 
 module.exports = mongoose.model('Ad', Ad)
