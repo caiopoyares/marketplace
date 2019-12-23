@@ -1,4 +1,4 @@
 module.exports = {
-    secret: 'GoNode03',
-    ttl: 86400
-}
+  secret: process.env.JWT_SECRET,
+  ttl: process.env.JWT_EXPIRED_SECONDS
+};
